@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 import os
 import sys
 import platform
@@ -10,17 +10,16 @@ if openai.api_key is None:
     print("Error: OpenAI API key not found. Set the OPENAI_API_KEY environment variable.")
     sys.exit(1)
 
-# 2. Get the natural language query from command-line arguments.
+# 2. Get the natural language query from command-line arguments or prompt the user.
 if len(sys.argv) < 2:
-    print("Usage: nl2cmd.py \"<natural language instruction>\"")
-    sys.exit(1)
-user_query = " ".join(sys.argv[1:])
+    user_query = input("What would you like to do? ")
+else:
+    user_query = " ".join(sys.argv[1:])
 
 # 3. Detect the operating system.
 os_name = platform.system()  # e.g., "Windows" or "Linux"
 
 # 4. Prepare the OpenAI Chat API request.
-# The system message instructs the model to output only a single, safe command.
 system_message = (
     "You are a helpful assistant that translates a user's natural language request into a single OS command. "
     f"The current operating system is {os_name}. "
@@ -61,4 +60,5 @@ if any(pattern in lower_cmd for pattern in dangerous_substrings):
     sys.exit(1)
 
 # 6. Print the resulting command.
+print("Suggested Command:")
 print(command_output)
