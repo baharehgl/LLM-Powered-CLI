@@ -12,7 +12,7 @@ if openai.api_key is None:
 
 # 2. Get the natural language query from command-line arguments or prompt the user.
 if len(sys.argv) < 2:
-    user_query = input("What would you like to do? ")
+    user_query = input("What command would you like me to give you? ")
 else:
     user_query = " ".join(sys.argv[1:])
 
